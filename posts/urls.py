@@ -4,5 +4,5 @@ from rest_framework.routers import DefaultRouter
 from .views import UserViewset, PostViewSet
 
 router = DefaultRouter()
-router.register('users', UserViewset, base_name='users')
-router.register('posts', PostViewSet, base_name='posts')
+router.register('users', UserViewset)
+router.register('posts', PostViewSet)
