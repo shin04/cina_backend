@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/Users/kajiwarataishin/Desktop/cina/cina_env"
+VIRTUAL_ENV="/Users/kajiwarataishin/Desktop/cina/cina_backend/cina_env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
