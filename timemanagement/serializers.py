@@ -10,4 +10,4 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class TimeManagementSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = TimeManagement
-        fields = ['user', 'start_time']
+        fields = ['user', 'start_time', 'finish_time', 'work_time']

@@ -24,6 +24,6 @@ router.register('timemanagement', TimeManagementViewSet)
 
 urlpatterns = format_suffix_patterns([
     path('timemanagement_list/', timemanagement_list, name='timemanagement-list'),
-    path('timemanagement_detail/<int:pk>', timemanagement_detail, name='timemanagement-detail'),
-    path('timemanagement_update_finish', timemanagement_update_finish, name='timemanagement-update-finish')
+    path('timemanagement_detail/<int:pk>/', timemanagement_detail, name='timemanagement-detail'),
+    path('timemanagement_update_finish/', timemanagement_update_finish, name='timemanagement-update-finish')
 ])

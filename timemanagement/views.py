@@ -20,22 +20,12 @@ class TimeManagementViewSet(viewsets.ModelViewSet):
 
     @action(detail=True)
     def update_finish_time(self, request, pk):
-        timemanagement = self.get_obejct()
+        timemanagement = TimeManagement.objects.get(pk=pk)
         timemanagement.finish_work()
         timemanagement.save()
-        
-
-# @api_view(['GET', 'POST'])
-# def timemanegement_list(request):
-#     if request.method == 'GET':
-#         timemanagements = TimeManagement.objects.all()
-#         serializer = TimeManagementSerializer(timemanegements, many=True)
-#         return Response(serializer.data)
-    
-#     elif request.method == 'POST':
-#         serializer = TimeManagementSerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer = TimeManagementSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, sutatus=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
