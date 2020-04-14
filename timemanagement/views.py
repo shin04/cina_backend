@@ -8,11 +8,6 @@ from rest_framework.decorators import api_view, action
 from rest_framework.response import Response
 from rest_framework import renderers
 
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
 class TimeManagementViewSet(viewsets.ModelViewSet):
     queryset = TimeManagement.objects.all()
     serializer_class = TimeManagementSerializer
