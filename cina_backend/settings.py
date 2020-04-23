@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     
-    'posts.apps.PostsConfig',
+    'userinfo.apps.UserinfoConfig',
     'rest_framework',
     'rest_framework.authtoken',
     'allauth',
@@ -147,3 +147,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ],
 }
+
+# Application definition
+AUTH_USER_MODEL = 'userinfo.User'
