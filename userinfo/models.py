@@ -13,6 +13,7 @@ import uuid as uuid_lib
 class Workspace(models.Model):
     uuid = models.UUIDField(default=uuid_lib.uuid4, primary_key=True, editable=False)
     name = models.CharField(_('workspace'), max_length=100)
+    admin = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
