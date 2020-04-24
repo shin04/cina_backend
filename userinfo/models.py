@@ -11,20 +11,24 @@ from django.dispatch import receiver
 import uuid as uuid_lib
 
 class Workspace(models.Model):
-    uuid = models.UUIDField(default=uuid_lib.uuid4, primary_key=True, editable=False)
-    name = models.CharField(_('workspace'), max_length=100)
+    # uuid = models.UUIDField(default=uuid_lib.uuid4, primary_key=True, editable=False)
+    workspace_name = models.CharField(_('workspace_name'), max_length=100, unique=True)
     admin = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return self.workspace_name
 
 # userとworkspaceの対応表
 class WorksapeTable(models.Model):
+    AUTHORITY_LIST = [('admin', 'admin'),('general', 'general')]
+
     workspace = models.ForeignKey(Workspace, on_delete=models.CASCADE)
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True)
+    # user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user_authority = models.CharField(max_length=10, choices=AUTHORITY_LIST, default='general')
 
     def __str__(self):
-        return self.name
+        return self.workspace_name
 
 class UserManager(UserManager):
     def _create_user(self, email, password, **extra_fields):

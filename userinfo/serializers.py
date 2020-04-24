@@ -5,12 +5,12 @@ from .models import Workspace, WorksapeTable
 class WorkspaceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Workspace
-        fields = ('uuid', 'name', 'admin')
+        fields = ('workspace_name', 'admin')
 
 class WorksapeTableSerializer(serializers.ModelSerializer):
     class Meta:
         model = WorksapeTable
-        fields = ('id', 'workspace', 'user') 
+        fields = ('id', 'workspace', 'user', 'user_authority') 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
