@@ -1,23 +1,29 @@
 from django.db import models
+from django.db.models.signals import post_save
 # from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.core.mail import send_mail
 from django.conf import settings
+from django.dispatch import receiver
+
 import uuid as uuid_lib
 
 class Workspace(models.Model):
     uuid = models.UUIDField(default=uuid_lib.uuid4, primary_key=True, editable=False)
     name = models.CharField(_('workspace'), max_length=100)
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
 
-    class Meta:
-        verbose_name = _('workspace')
-        verbose_name_plural = _('workspace')
+# userとworkspaceの対応表
+class WorksapeTable(models.Model):
+    workspace = models.ForeignKey(Workspace, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True)
+
+    def __str__(self):
+        return self.name
 
 class UserManager(UserManager):
     def _create_user(self, email, password, **extra_fields):
