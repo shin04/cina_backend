@@ -1,88 +1,145 @@
-# USAGE
-## login
-POST  
-```
-/api/v1/rest-auth/login
-```
-パラメータ  
-```
-username: ログインに使うメールアドレス
-password: ログインに使うパスワード
-```
+FORMAT: 1A
+# cina API
+cinaのoAPIの使用書
 
-レスポンス
-```
-ステータス: 200  
-key: 認証用のトークン
-```
+<br>
 
-## logout
-POST
-```
-/api/v1/rest-auth/logout
-```
-レスポンス
-```
-ステータス: 200  
-detail: "Successfully logged out."
-```
+# 認証関連
+## ユーザ登録 [/api/v1/rest-auth/registration/]
+### POST
++ Request (application/json)
 
-## register
-POST
-```
-/api/v1/rest-auth/registration
-```
-パラメータ
-```
-username: ユーザ名  
-email: メールアドレス  
-password1: パスワード  
-password2: 確認用のパスワード 
-```
+    + username: ユーザー名(ログインでは使用しない)
+    + email: メールアドレス(ログインで使用)
+    + password1: パスワード 
+    + password2: 確認用パスワード
 
-レスポンス
-```
-ステータス: 201  
-key: 認証用のトークン
-```
-
-## user list
-GET
-```
-/api/v1/users
-```
-
-レスポンス
-```
-ステータス: 200
-ユーザのリスト
-例）
-[
++ Response 201 (application/json)
+    ```
     {
-        "uuid": "84b28bb4-a161-4c8b-bc57-a33483d20ce3",
-        "username": "",
-        "email": "admin@admin.com"
-    },
-    {
-        "uuid": "f1d68c5f-a523-41c4-97f5-bb8a3e5e4f53",
-        "username": "daishin",
-        "email": "daishin@daishin.com"
-    },
-    {
-        "uuid": "20d2cd55-a616-4b2d-a13c-dce6dd0e0f2f",
-        "username": "hoge",
-        "email": "hoge@hoge.com"
+        key: 認証用のトークン
     }
-]
-```
+    ```
+<br>
 
-GET
-```
-/api/v1/user/{uuid}
-```
+## ログイン [/api/v1/rest-auth/login/]
+### POST
++ Request (application/json)
 
-レスポンス
-```
-ステータス: 200
+    + username: メールアドレス(ユーザー名ではないので注意)
+    + password: パスワード
 
-```
++ Response 200 (application/json)
+    ```
+    {
+        key: 認証用のトークン
+    }
+    ```
+<br>
+
+
+## ログアウト [/api/v1/rest-auth/logout/]
+### POST
++ Response 200 (application/json)
+    ```
+    {
+        "detail": "Successfully logged out."
+    }
+    ```
+<br>
+
+# ユーザー関連
+## ユーザーリスト [/api/v1/user_info/users/]
+### GET
++ Response 200 (application/json)
+    ```
+    [
+        {
+            "uuid": ユーザーID,
+            "username": ユーザー名,
+            "email": メールアドレス
+        },
+    ]
+    ```
+<br>
+
+## 個別ユーザー情報 [/api/v1/user_info/users/[uuid]/]
+### GET
++ Response 200 (application/json)
+    ```
+    {
+        "uuid": ユーザーID,
+        "username": ユーザー名,
+        "email": メールアドレス
+    }
+    ```
+<br>
+
+# ワークスペース関連
+## ワークスペースリスト
+### GET
++ Response 200 (application/json)
+    ```
+    [
+        {
+            "id": ワークスペースID,
+            "workspace_name": ワークスペース名,
+            "admin": 管理者のユーザID
+        },
+    ]
+    ```
+<br>
+
+## 個別ワークスペース情報 [/api/v1/user_info/users/[uuid]/]
+### GET
++ Response 200 (application/json)
+    ```
+    {
+        "id": ワークスペースID,
+        "workspace_name": ワークスペース名,
+        "admin": 管理者のユーザID
+    }
+    ```
+<br>
+
+## ワークスペースにユーザーを追加 [/api/v1/user_info/workspaces/1/add_user/]
+### POST
++ Request (application/json)
+    ```
+    {
+        "add_user": ユーザーのメールアドレス
+    }
+    ```
+
++ Response 200 (application)
+    ```
+    {
+        "status": "success"
+    }
+    ```
+<br>
+
+## ワークスペースの存在確認 [/api/v1/user_info/workspaces/exist_workspace/?workspace_name=[ワークスペース名]]
+### GET
++ Response 200 (application/json)
+    ```
+    {
+        "exist": true
+    }
+    ```
+<br>
+
+# ユーザーとワークスペースの対応 [/api/v1/user_info/workspacetable/]
+## 対応表取得
+### GET
++ Response
+    ```
+    [
+        {
+            "id": テーブルID,
+            "workspace": ワークスペースID,
+            "user": ユーザーID,
+            "user_authority": ユーザーの権限
+        },
+    ]
+    ```

@@ -33,7 +33,7 @@ class WorkspaceViewset(viewsets.ModelViewSet):
 
     @action(detail=False)
     def exist_workspace(self, request):
-        workspace = Workspace.objects.all().filter(workspace_name__iexact=request.GET.get(workspace_name))
+        workspace = Workspace.objects.all().filter(workspace_name__iexact=request.GET.get("workspace_name"))
         if workspace == None:
             return Response({'exist': False})
         else:
