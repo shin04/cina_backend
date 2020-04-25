@@ -4,36 +4,46 @@ POST
 ```
 /api/v1/rest-auth/login
 ```
+パラメータ  
+```
+username: ログインに使うメールアドレス
+password: ログインに使うパスワード
+```
 
-parameters
+レスポンス
 ```
-username, password, email
-```
-
-response
-```
-token
+ステータス: 200  
+key: 認証用のトークン
 ```
 
 ## logout
-GET
+POST
 ```
 /api/v1/rest-auth/logout
 ```
+レスポンス
+```
+ステータス: 200  
+detail: "Successfully logged out."
+```
+
 ## register
 POST
 ```
 /api/v1/rest-auth/registration
 ```
+パラメータ
+```
+username: ユーザ名  
+email: メールアドレス  
+password1: パスワード  
+password2: 確認用のパスワード 
+```
 
-parameters
+レスポンス
 ```
-username, email, password, confirm_password
-```
-
-response
-```
-token
+ステータス: 201  
+key: 認証用のトークン
 ```
 
 ## user list
@@ -42,17 +52,37 @@ GET
 /api/v1/users
 ```
 
-response
+レスポンス
 ```
-userlist
+ステータス: 200
+ユーザのリスト
+例）
+[
+    {
+        "uuid": "84b28bb4-a161-4c8b-bc57-a33483d20ce3",
+        "username": "",
+        "email": "admin@admin.com"
+    },
+    {
+        "uuid": "f1d68c5f-a523-41c4-97f5-bb8a3e5e4f53",
+        "username": "daishin",
+        "email": "daishin@daishin.com"
+    },
+    {
+        "uuid": "20d2cd55-a616-4b2d-a13c-dce6dd0e0f2f",
+        "username": "hoge",
+        "email": "hoge@hoge.com"
+    }
+]
 ```
 
 GET
 ```
-/api/v1/user/{userID}
+/api/v1/user/{uuid}
 ```
 
-response
+レスポンス
 ```
-username
+ステータス: 200
+
 ```
