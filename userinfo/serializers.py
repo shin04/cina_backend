@@ -5,7 +5,7 @@ from .models import Workspace, WorksapeTable
 class WorkspaceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Workspace
-        fields = ('workspace_name', 'admin')
+        fields = ('id', 'workspace_name', 'admin')
 
 class WorksapeTableSerializer(serializers.ModelSerializer):
     class Meta:

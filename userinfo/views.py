@@ -39,6 +39,16 @@ class WorkspaceViewset(viewsets.ModelViewSet):
         else:
             return Response({'exist': True})
 
+    @action(detail=True, methods=['post'])
+    def add_user(self, request, pk):
+        # 追加したいユーザのメールアドレスを送る
+        user = get_user_model().objects.get(email=request.data["add_user"])
+        workspace = Workspace.objects.get(pk=pk)
+        relation_table = WorksapeTable(user=user, workspace=workspace, user_authority='general')
+        relation_table.save()
+
+        return Response({'status': 'success'})
+
 class WorkspaceTableViewset(viewsets.ModelViewSet):
     queryset = WorksapeTable.objects.all()
     serializer_class = WorksapeTableSerializer
