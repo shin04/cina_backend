@@ -52,3 +52,20 @@ class WorkspaceViewset(viewsets.ModelViewSet):
 class WorkspaceTableViewset(viewsets.ModelViewSet):
     queryset = WorksapeTable.objects.all()
     serializer_class = WorksapeTableSerializer
+
+    @action(detail=False, methods=['get'])
+    def users_by_workspace(self, request):
+        workspace = Workspace.objects.get(workspace_name=request.GET.get('workspace'))
+
+        tables = self.queryset.filter(workspace=workspace)
+
+        user_list = []
+        for table in tables:
+            user_dic = {
+                'authority': table.user_authority,
+                'email': table.user.email,
+                'uuid': table.user.uuid
+            }
+            user_list.append(user_dic)
+        
+        return Response(user_list)

@@ -27,8 +27,8 @@ class WorksapeTable(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     user_authority = models.CharField(max_length=10, choices=AUTHORITY_LIST, default='general')
 
-    def __str__(self):
-        return self.workspace_name
+    # def __str__(self):
+    #     return self.workspace_name
 
 class UserManager(UserManager):
     def _create_user(self, email, password, **extra_fields):
