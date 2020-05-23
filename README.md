@@ -115,7 +115,7 @@ FORMAT: 1A
 
     
 
-## 個別ワークスペース情報 [/api/v1/user_info/users/[uuid]/]
+## 個別ワークスペース情報 [/api/v1/user_info/workspaces/[uuid]/]
 ### GET
 + Response 200 (application/json)
     + Body
