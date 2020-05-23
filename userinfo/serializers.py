@@ -10,7 +10,7 @@ class WorkspaceSerializer(serializers.ModelSerializer):
 class WorksapeTableSerializer(serializers.ModelSerializer):
     class Meta:
         model = WorksapeTable
-        fields = ('id', 'workspace', 'user', 'user_authority') 
+        fields = ('id', 'workspace', 'user', 'user_authority', 'user_location') 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:

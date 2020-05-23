@@ -75,7 +75,7 @@ FORMAT: 1A
         ```
 
 # ワークスペース関連
-## ワークスペースリスト
+## ワークスペースリスト[/api/v1/workspace/]
 ### GET
 + Response 200 (application/json)
     + Body
