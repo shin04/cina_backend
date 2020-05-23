@@ -74,3 +74,14 @@ class WorkspaceTableViewset(viewsets.ModelViewSet):
             user_list.append(user_dic)
         
         return Response(user_list)
+
+    @action(detail=False, methods=['post'])
+    def set_user_location(self, request):
+        workspace = Workspace.objects.get(workspace_name=request.data['workspace'])
+        user = get_user_model.objects.get(email=request.data['email'])
+
+        relation_table = WorksapeTable.get(workspace=workspace, user=user)
+        relation_table.user_location = request.data['user_location']
+        relation_table.save()
+
+        return Response({'status': 'success'})
