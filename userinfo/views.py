@@ -24,8 +24,13 @@ class WorkspaceViewset(viewsets.ModelViewSet):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
 
-        user = get_user_model().objects.get(uuid=request.POST.get('admin', None))
-        workspace = Workspace.objects.get(workspace_name=request.POST.get('workspace_name', None))
+        # print(request.POST.get('admin', None))
+        # print(request.POST.get('workspace_name', None))
+        print(request.data['workspace_name'])
+        print(request.data['admin'])
+        
+        user = get_user_model().objects.get(uuid=request.data['admin'])
+        workspace = Workspace.objects.get(workspace_name=request.data['workspace_name'])
         relation_table = WorksapeTable(user=user, workspace=workspace, user_authority='admin')
         relation_table.save()
 
