@@ -39,6 +39,7 @@ class WorkspaceViewset(viewsets.ModelViewSet):
     @action(detail=False)
     def exist_workspace(self, request):
         workspace = Workspace.objects.all().filter(workspace_name__iexact=request.GET.get("workspace_name"))
+        print("hogehogehogehoge")
         if workspace == None:
             return Response({'exist': False})
         else:
@@ -49,6 +50,10 @@ class WorkspaceViewset(viewsets.ModelViewSet):
         # 追加したいユーザのメールアドレスを送る
         user = get_user_model().objects.get(email=request.data["add_user"])
         workspace = Workspace.objects.get(pk=pk)
+
+        if WorksapeTable.objects.filter(user=user, workspace=workspace).exists():
+            return Response({'status': 'exist'})
+
         relation_table = WorksapeTable(user=user, workspace=workspace, user_authority='general')
         relation_table.save()
 
@@ -122,5 +127,7 @@ class WorkspaceTableViewset(viewsets.ModelViewSet):
         user = get_user_model().objects.get(email=request.GET.get('email'))
         relation_table = WorksapeTable.objects.get(workspace=workspace, user=user)
         user_location = relation_table.user_location
+        # tables = self.queryset.filter(workspace=workspace, user=user)
+        # user_location = tables[0].user_location
 
         return Response({'location': user_location})
