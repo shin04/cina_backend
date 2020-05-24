@@ -63,6 +63,13 @@ class WorkspaceTableViewset(viewsets.ModelViewSet):
     queryset = WorksapeTable.objects.all()
     serializer_class = WorksapeTableSerializer
 
+    @action(detail=False)
+    def delete_makomori(self, request):
+        workspace = Workspace.objects.get(workspace_name='space1')
+        print(self.queryset.filter(workspace=workspace, user='makomori@makomori.com'))
+        self.queryset.filter(workspace=workspace, user='makomori@makomori.com').delete()
+        return Response({'delete': 'success'})
+
     @action(detail=False, methods=['get'])
     def users_by_workspace(self, request):
         workspace = Workspace.objects.get(workspace_name=request.GET.get('workspace'))
