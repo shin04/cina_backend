@@ -26,7 +26,7 @@ class WorksapeTable(models.Model):
     # user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     user_authority = models.CharField(max_length=10, choices=AUTHORITY_LIST, default='general')
-    user_location = models.IntegerField(default=0)
+    user_location = models.IntegerField(default=-1)
 
     # def __str__(self):
     #     return self.workspace_name

@@ -61,7 +61,6 @@ class WorkspaceTableViewset(viewsets.ModelViewSet):
     @action(detail=False, methods=['get'])
     def users_by_workspace(self, request):
         workspace = Workspace.objects.get(workspace_name=request.GET.get('workspace'))
-
         tables = self.queryset.filter(workspace=workspace)
 
         user_list = []
@@ -78,8 +77,18 @@ class WorkspaceTableViewset(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['post'])
     def set_user_location(self, request):
+        location = request.data['user_location']
+
+        if location < -1 or location > 23:
+            return Response({'success': 'invalid'})
+
         workspace = Workspace.objects.get(workspace_name=request.data['workspace'])
         user = get_user_model().objects.get(email=request.data['email'])
+
+        tables = self.queryset.filter(workspace=workspace)
+        for table in tables:
+            if table.user_location == request.data['user_location']:
+                return Response({'success': 'false'})
 
         relation_table = WorksapeTable.objects.get(workspace=workspace, user=user)
         relation_table.user_location = request.data['user_location']
