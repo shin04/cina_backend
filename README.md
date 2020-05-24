@@ -202,8 +202,19 @@ FORMAT: 1A
   * Body
 
     ```json
+    // 成功時
     {
         "status": "success"
+    }
+    
+    // すでに人がいた時
+    {
+      "status": "false"
+    }
+    
+    // 無効な数字
+    {
+      "status": "invalid"
     }
     ```
 
@@ -221,4 +232,30 @@ FORMAT: 1A
     }
     ```
 
-    
+
+### ワークスペース内の他のユーザーの位置情報取得[/api/v1/user_info/workspacetable/get_other_user_location?workspace=[ワークスペース名]&email=[ユーザーのメールアドレス]]
+
+### GET
+
+* Response(application/json)
+
+  * Body
+
+    ```json
+    [
+        {
+            "authority": ユーザーの権限,
+            "email": ユーザーのメールアドレス,
+            "uuid": ユーザーのUUID,
+            "name": ユーザーの名前,
+            "user_location": 位置情報
+        }
+    ]
+    ```
+
+
+
+```
+
+```
+
