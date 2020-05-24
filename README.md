@@ -181,3 +181,44 @@ FORMAT: 1A
         ]
         ```
 
+## ワークスペース内のユーザーの位置情報更新[/api/v1/user_info/workspacetable/set_user_location/]
+
+### POST
+
+* Request(application/json)
+
+  * Body
+
+    ```json
+    {
+    	"workspace": ワークスペース名,
+    	"email": ユーザーのメールアドレス,
+    	"user_location": ユーザーの位置情報(int)
+    }
+    ```
+
+* Response(application/json)
+
+  * Body
+
+    ```json
+    {
+        "status": "success"
+    }
+    ```
+
+## ワークスペース内のユーザーの位置情報取得[/api/v1/user_info/workspacetable/get_user_location?workspace=[ワークスペース名]&email=[ユーザーのメールアドレス]]
+
+### GET
+
+* Response(application/json)
+
+  * Body
+
+    ```json
+    {
+        "location": 位置情報（int）
+    }
+    ```
+
+    
