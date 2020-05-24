@@ -86,6 +86,26 @@ class WorkspaceTableViewset(viewsets.ModelViewSet):
         relation_table.save()
 
         return Response({'status': 'success'})
+    
+    @action(detail=False, methods=['get'])
+    def get_other_user_location(self, request):
+        workspace = Workspace.objects.get(workspace_name=request.GET.get('workspace'))
+        user = get_user_model().objects.get(email=request.GET.get('email'))
+        tables = self.queryset.filter(workspace=workspace)
+
+        user_list = []
+        for table in tables:
+            if table.user != user:
+                user_dic = {
+                    'authority': table.user_authority,
+                    'email': table.user.email,
+                    'uuid': table.user.uuid,
+                    'name': table.user.username,
+                    'user_location': table.user_location,
+                }
+                user_list.append(user_dic)
+
+        return Response(user_list)
 
     @action(detail=False, methods=['get'])
     def get_user_location(self, request):
