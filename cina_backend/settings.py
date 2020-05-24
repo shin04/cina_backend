@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'rest_auth',
     'rest_auth.registration',
+    
     'corsheaders' ,
 
     'timemanagement.apps.TimemanagementConfig'
@@ -61,14 +62,14 @@ SITE_ID = 1
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
+    # 'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'cina_backend.urls'
@@ -162,5 +163,6 @@ AUTH_USER_MODEL = 'userinfo.User'
 
 # CORSの設定
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost:3000',
+    # 'http://localhost:3000',
+    'localhost:3000'
 )
