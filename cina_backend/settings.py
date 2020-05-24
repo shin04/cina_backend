@@ -164,6 +164,7 @@ AUTH_USER_MODEL = 'userinfo.User'
 # CORSの設定
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
+    'https://cina-frontend-develop.netlify.app',
 )
 CORS_ALLOW_METHODS = [
     'DELETE',
