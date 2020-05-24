@@ -86,3 +86,12 @@ class WorkspaceTableViewset(viewsets.ModelViewSet):
         relation_table.save()
 
         return Response({'status': 'success'})
+
+    @action(detail=False, methods=['get'])
+    def get_user_location(self, request):
+        workspace = Workspace.objects.get(workspace_name=request.GET.get('workspace'))
+        user = get_user_model().objects.get(email=request.GET.get('email'))
+        relation_table = WorksapeTable.objects.get(workspace=workspace, user=user)
+        user_location = relation_table.user_location
+
+        return Response({'location': user_location})
