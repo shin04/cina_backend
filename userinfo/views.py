@@ -67,7 +67,7 @@ class WorkspaceTableViewset(viewsets.ModelViewSet):
     def delete_makomori(self, request):
         workspace = Workspace.objects.get(workspace_name='space1')
         print(self.queryset.filter(workspace=workspace, user='makomori@makomori.com'))
-        self.queryset.filter(workspace=workspace, user='makomori@makomori.com').delete()
+        self.queryset.filter(workspace=workspace, user='caaa0102-3d01-4cfc-a8a4-03f506683c8d').delete()
         return Response({'delete': 'success'})
 
     @action(detail=False, methods=['get'])
